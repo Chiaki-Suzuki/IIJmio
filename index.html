@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>料金プランかんたん診断｜格安SIM/格安スマホのIIJmio</title>
+    <meta name="description" content="">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <main>
+            <section class="simu">
+                <p>
+                    <img src="images/title_pc.png" alt="料金プランかんたん診断">
+                </p>
+                <p>最大4つの質問に答えるだけで、<br class="pc_off">あなたにピッタリな料金プランをご提案！</p>
+                <div class="container">
+                    <div class="simu_box">
+                        <div class="questions">
+                            <!-- 質問１ -->
+                            <transition :name="trans">
+                                <div class="q_box" v-if="state === 1">
+                                    <h3>電話番号（090等）は必要ですか？</h3>
+                                    <div class="q_box_btn">
+                                        <input id="q1-1" type="radio" name="q1" @click="q1(0)" :checked="checkedAns.q1.a0">
+                                        <label for="q1-1">
+                                            <img src="images/icon_tel_yes_on.png" alt="">
+                                            <p>必要<br class="sp_off">（お乗り換えの方はこちら）</p>
+                                        </label>
+                                        <input id="q1-2" type="radio" name="q1" @click="q1(1)" :checked="checkedAns.q1.a1">
+                                        <label for="q1-2">
+                                            <img src="images/icon_tel_no_on.png" alt="">
+                                            <p>不要</p>
+                                        </label>
+                                    </div>
+                                </div>
+                            </transition>
+                            <!-- 質問２ -->
+                            <transition :name="trans">
+                                <div class="q_box" v-if="state === 2">
+                                    <h3>ご利用になるSIMの形状を教えてください</h3>
+                                    <div class="q_box_btn">
+                                        <input id="q2-1" type="radio" name="q2" @click="q2(simCard)" :checked="checkedAns.q2.a0">
+                                        <label for="q2-1">
+                                            <img src="images/icon_voiceesim_no_on.png" alt="">
+                                            <p>SIMカード<br>（カード型）</p>
+                                        </label>
+                                        <input id="q2-2" type="radio" name="q2" @click="q2(useEsim)" :checked="checkedAns.q2.a1">
+                                        <label for="q2-2">
+                                            <img src="images/icon_voiceesim_yes_on.png" alt="">
+                                            <p>eSIM※</p>
+                                        </label>
+                                    </div>
+                                    <p class="q2_anno">
+                                        ※eSIMご利用にはeSIM対応機種が必要です。<br>
+                                        未対応の場合はご利用できませんので、「SIMカード」を選択してください。
+                                    </p>
+                                    <p class="q2_anno onsei_esim">
+                                        <a href="" class="onsei_esim"><img src="images/voiceesim_btn.png" alt="音声eSIMとは？"></a>
+                                    </p>
+                                    <button class="retuen_btn" @click="returnQuestion(1)">前の設問に戻る</button>
+                                </div>
+                            </transition>
+                            <!-- 質問３ -->
+                            <transition :name="trans">
+                                <div class="q_box" v-if="state === 3">
+                                    <h3>通話定額を使いますか？</h3>
+                                    <div class="q_box_btn">
+                                        <input id="q3-1" type="radio" name="q3" @click="q3(min5)" :checked="checkedAns.q3.a0">
+                                        <label for="q3-1">
+                                            <img src="images/icon_5min_on.png" alt="">
+                                            <p>通話定額5分+<br>
+                                                <span>
+                                                    1回5分以内の国内通話無料<br>
+                                                    税込90円
+                                                </span>
+                                            </p>
+                                        </label>
+                                        <input id="q3-2" type="radio" name="q3" @click="q3(min10)" :checked="checkedAns.q3.a1">
+                                        <label for="q3-2">
+                                            <img src="images/icon_10min_on.png" alt="">
+                                            <p>通話定額10分+<br>
+                                                <span>
+                                                    1回10分以内の国内通話無料<br>
+                                                    税込290円
+                                                </span>
+                                            </p>
+                                        </label>
+                                        <input id="q3-3" type="radio" name="q3" @click="q3(infinite)" :checked="checkedAns.q3.a2">
+                                        <label for="q3-3">
+                                            <img src="images/icon_kakehodai_on.png" alt="">
+                                            <p>かけ放題+<br>
+                                                <span>
+                                                    無制限で国内通話無料<br>
+                                                    税込990円
+                                                </span>
+                                            </p>
+                                        </label>
+                                        <input id="q3-4" type="radio" name="q3" @click="q3(none)" :checked="checkedAns.q3.a3">
+                                        <label for="q3-4">
+                                            <img src="images/icon_teigaku_no_on.png" alt="">
+                                            <p>通話定額は使わない</p>
+                                        </label>
+                                    </div>
+                                    <button class="retuen_btn" @click="returnQuestion(2)">前の設問に戻る</button>
+                                </div>
+                            </transition>
+                            <!-- 質問４ -->
+                            <transition :name="trans">
+                                <div class="q_box"  v-if="state === 4">
+                                    <h3>SMSを使いますか？</h3>
+                                    <div class="q_box_btn">
+                                        <input id="q4-1" type="radio" name="q4" @click="q4(0)" :checked="checkedAns.q4.a0">
+                                        <label for="q4-1">
+                                            <img src="images/icon_sms_yes_on.png" alt="">
+                                            <p>SMSを使う</p>
+                                        </label>
+                                        <input id="q4-2" type="radio" name="q4" @click="q4(1)" :checked="checkedAns.q4.a1">
+                                        <label for="q4-2">
+                                            <img src="images/icon_sms_no_on.png" alt="">
+                                            <p>SMSは使わない</p>
+                                        </label>
+                                    </div>
+                                    <button class="retuen_btn" @click="returnQuestion(1)">前の設問に戻る</button>
+                                </div>
+                            </transition>
+                            <!-- 質問５ -->
+                            <transition :name="trans">
+                                <div class="q_box" v-if="state === 5">
+                                    <h3>データeSIMを使いますか？</h3>
+                                    <div class="q_box_btn">
+                                        <input id="q5-1" type="radio" name="q5" @click="q5(dataEsim)" :checked="checkedAns.q5.a0">
+                                        <label for="q5-1">
+                                            <img src="images/icon_voiceesim_no_on.png" alt="">
+                                            <p>データeSIMを使う</p>
+                                        </label>
+                                        <input id="q5-2" type="radio" name="q5" @click="q5(noDataEsim)" :checked="checkedAns.q5.a1">
+                                        <label for="q5-2">
+                                            <img src="images/icon_voiceesim_yes_on.png" alt="">
+                                            <p>データeSIMは使わない</p>
+                                        </label>
+                                    </div>
+                                    <p class="q2_anno onsei_esim">
+                                        <a href=""><img src="images/esim_btn.png" alt="データeSIMとは？"></a>
+                                    </p>
+                                    <button class="retuen_btn" @click="returnQuestion(4)">前の設問に戻る</button>
+                                </div>
+                            </transition>
+                            <!-- 質問６ -->
+                            <transition :name="trans">
+                                <div class="q_box"  v-if="state === 6">
+                                    <h3>データ通信は毎日どのくらいご利用ですか？</h3>
+                                    <div class="q_box_btn">
+                                        <input id="q6-1" type="radio" name="q6" @click="q6(2)" :checked="checkedAns.q6.a0">
+                                        <label for="q6-1">
+                                            <img src="images/icon_2giga_on.png" alt="">
+                                            <p>
+                                                家のWi-Fi利用が中心<br>
+                                                外出先でネットはあまり使わない
+                                            </p>
+                                        </label>
+                                        <input id="q6-2" type="radio" name="q6" @click="q6(4)" :checked="checkedAns.q6.a1">
+                                        <label for="q6-2">
+                                            <img src="images/icon_4giga_on.png" alt="">
+                                            <p>外出先のSNS利用やネット閲覧が中心</p>
+                                        </label>
+                                        <input id="q6-3" type="radio" name="q6" @click="q6(8)" :checked="checkedAns.q6.a2">
+                                        <label for="q6-3">
+                                            <img src="images/icon_8giga_on.png" alt="">
+                                            <p>外出先でゲームアプリを使う</p>
+                                        </label>
+                                        <input id="q6-4" type="radio" name="q6" @click="q6(15)" :checked="checkedAns.q6.a3">
+                                        <label for="q6-4">
+                                            <img src="images/icon_15giga_on.png" alt="">
+                                            <p>外出先で動画を視聴しネットもよく使う</p>
+                                        </label>
+                                        <input id="q6-5" type="radio" name="q6" @click="q6(20)" :checked="checkedAns.q6.a4">
+                                        <label for="q6-5">
+                                            <img src="images/icon_20giga_on.png" alt="">
+                                            <p>外出先でギガ（データ量）を気にせずに使いたい</p>
+                                        </label>
+                                    </div>
+                                    <button class="retuen_btn" @click="returnQuestion(prevState)">前の設問に戻る</button>
+                                </div>
+                            </transition>
+                        </div>
+                        <div class="result_box">
+                            <p class="announce">今なら！音声SIM月額料金＆通話定額が6か月間割引！<br class="pc_off">期間延長！2022/11/30まで</p>
+                            <div class="result">
+                                <h4>
+                                    <img src="images/diagnosis_title_pc.png" alt="診断結果">
+                                </h4>
+                                <div class="price_box">
+                                    <p class="sp_off">診断結果<span>合計</span></p>
+                                    <ul>
+                                        <li><p><span class="result_title">回線数</span> <span class="num">{{ line }}</span>回線</p></li>
+                                        <li><p><span class="result_title">データ容量</span> <span class="num">{{ giga }}</span>GB</p></li>
+                                        <li><p><span class="result_title">月額</span> <span class="num">{{ price }}</span>円</p></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <p class="anno">
+                                ※上記費用には、SIMカード発行手数料、ユニバーサルサービス料、電話リレーサービス料は含まれておりません。<br>
+                                ※消費税の端数処理により実際の請求額が異なる場合があります。<br>
+                                ※シミュレーション結果は目安です。ご契約条件やご請求額を保証するものではありませんので、あらかじめご了承の上ご利用ください。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+<script src="https://unpkg.com/vue@next"></script>
+<script src="main.js"></script>
+</html>

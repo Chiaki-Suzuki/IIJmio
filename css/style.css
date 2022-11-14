@@ -1,0 +1,394 @@
+@charset "UTF-8";
+/*-------------------------
+  初期化
+-------------------------*/
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  background: url("../images/border-brown-bg.png") 0 0 / 100%;
+  overflow-y: scroll;
+  /* height: 2000px; */
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    background-size: 500%;
+  }
+}
+
+ul, ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/*-------------------------
+  料金シミュレーション
+-------------------------*/
+main {
+  margin: 60px auto;
+}
+
+.container {
+  margin: 0 auto;
+  width: 960px;
+}
+
+@media screen and (max-width: 768px) {
+  main {
+    width: 96%;
+    margin: 30px auto;
+  }
+  .container {
+    width: 100%;
+  }
+  .simu img{
+    width: 100%;
+  }
+}
+
+.simu > img,
+.simu > p {
+  text-align: center;
+}
+
+.simu_box {
+  background-color: #fff;
+  padding: 40px;
+  margin: 40px 0 0 0;
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .simu_box {
+    padding: 20px;
+    margin: 20px 0 0 0;
+  }
+}
+
+.questions {
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.q_box {
+  flex-shrink: 0;
+  width: 100%;
+  height: 500px;
+}
+
+.q_box h3 {
+  text-align: center;
+  font-size: 25px;
+  margin: 0 0 30px 0;
+}
+
+@media screen and (max-width: 768px) {
+  .q_box {
+    height: 600px;
+  }
+
+  .q_box h3 {
+    text-align: left;
+    font-size: 13px;
+    margin: 0 0 10px 0;
+  }
+}
+
+.q_box h3::before {
+  content: 'Q';
+  display: inline-block;
+  background-color: #e64d97;
+  color: #fff;
+  padding: 5px 10px;
+  margin: 0 10px 0 0;
+}
+
+.q_box_btn {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 30px 0;
+}
+
+.q_box_btn input {
+  display: none;
+}
+
+.q_box_btn label {
+  background-color: #f9f9f9;
+  width: 100%;
+  max-width: 240px;
+  text-align: center;
+  padding: 20px;
+  margin-left: 20px;
+  border-radius: 10px;
+  border: 3px solid #ddd;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .q_box_btn {
+    display: block;
+  }
+  .q_box_btn label {
+    margin: 0 0 10px;
+    display: flex;
+    align-items: center;
+    max-width: unset;
+    padding: 15px;
+  }
+  .q_box_btn label img {
+    width: 40px;
+    height: auto;
+    margin: 0 10px 0 0;
+  }
+  .q_box_btn label p{
+    margin: 0;
+    text-align: left;
+    font-size: 12px;
+  }
+}
+
+.q_box_btn label:hover,
+.retuen_btn:hover {
+  opacity: 0.7;
+}
+
+.q_box_btn input:checked + label {
+  border: 3px solid #e64d97;
+  background-color: #fadaea;
+}
+
+.q_box_btn img {
+  display: inline-block;
+  margin: 0 0 20px 0;
+}
+
+.q2_anno {
+  width: 500px;
+  margin: 0 auto;
+}
+@media screen and (max-width: 768px) {
+  .q2_anno {
+    width: 100%;
+    font-size: 12px;
+  }
+}
+
+.q2_anno.onsei_esim {
+  text-align: right;
+  margin: 0 auto 20px;
+}
+
+.onsei_esim img {
+  width: 210px;
+}
+
+.retuen_btn {
+  width: 240px;
+  margin: 0 auto 30px;
+  display: block;
+  background: #fff;
+  padding: 10px;
+  color: #b07800;
+  font-weight: bold;
+  border: 2px solid;
+  border-radius: 50em;
+}
+
+.result_box .announce {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  background-color: #e64d97;
+  color: #fff;
+  padding: 5px 10px;
+  text-align: center;
+  font-style: italic;
+}
+
+@media screen and (max-width: 768px) {
+  .result_box .announce {
+    font-size: 12px;
+  }
+}
+
+.result_box .announce::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -15px;
+  border: 15px solid transparent;
+  border-top: 15px solid #e64d97;
+}
+
+.result {
+  background-color: #b07800;
+  padding: 20px;
+  margin: 20px 0 0 0;
+}
+
+.result h4 {
+  text-align: center;
+  border-bottom: 1px solid #fff;
+  margin: 0 0 20px;
+}
+
+.result img {
+  width: 170px;
+  margin: 0 0 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .result {
+    padding: 10px;
+  }
+  .result img {
+    margin: 0 0 10px;
+  }
+  .result h4 {
+    margin: 0 0 5px;
+  }
+}
+
+.price_box,
+.price_box ul {
+  display: flex;
+  align-items: center;
+}
+
+.price_box > p {
+  color: #fff;
+  text-align: center;
+  margin: 0 10px 0 0;
+}
+
+.price_box > p span {
+  font-size: 20px;
+  display: block;
+}
+
+.price_box ul {
+  background-color: #fff;
+  padding: 10px;
+  width: calc(100% - 74px);
+}
+
+.price_box ul li {
+  width: calc(100% / 3);
+  border-right: 1px solid #b07800;
+  padding: 10px;
+}
+
+.price_box ul li:last-of-type {
+  border-right: 0;
+}
+
+.price_box ul li p {
+  font-weight: bold;
+  margin: 0;
+}
+
+.price_box .result_title {
+  display: inline-block;
+}
+
+.price_box .num {
+  font-size: 32px;
+  color: #e64d97;
+}
+
+@media screen and (max-width: 768px) {
+  .price_box ul {
+    width: 100%;
+    background-color: #f9f4ed;
+  }
+  .price_box ul li {
+    padding: 5px;
+  }
+  .price_box ul li p {
+    text-align: center;
+    font-size: 12px;
+  }
+  .price_box .result_title {
+    background-color: #fff;
+    display: block;
+    padding: 5px;
+  }
+  .price_box .num {
+    font-size: 24px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .anno {
+    font-size: 10px;
+  }
+}
+
+.pc_off {
+  display: none;
+}
+.sp_off {
+  display: block;
+}
+@media screen and (max-width: 768px) {
+  .pc_off {
+    display: block;
+  }
+  .sp_off {
+    display: none;
+  }
+}
+
+/* 切替アニメーション用 */
+.next-enter-active, .next-leave-active,
+.prev-enter-active, .prev-leave-active  {
+  transition: all .5s ease-out;
+}
+.next-enter-from,
+.prev-leave-to {
+  transform: translateX(880px);
+}
+.next-enter-to,
+.prev-leave-from {
+  transform: translateX(-440px);
+}
+.next-leave-from,
+.prev-enter-to {
+  transform: translateX(440px);
+}
+.next-leave-to,
+.prev-enter-from {
+  transform: translateX(-880px);
+}
+
+@media screen and (max-width: 768px) {
+  .next-enter-active, .next-leave-active,
+.prev-enter-active, .prev-leave-active  {
+  transition: all .5s ease-out;
+}
+.next-enter-from,
+.prev-leave-to {
+  transform: translateX(100%);
+}
+.next-enter-to,
+.prev-leave-from {
+  transform: translateX(-50%);
+}
+.next-leave-from,
+.prev-enter-to {
+  transform: translateX(50%);
+}
+.next-leave-to,
+.prev-enter-from {
+  transform: translateX(-100%);
+}
+}
